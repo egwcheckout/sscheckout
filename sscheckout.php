@@ -5,23 +5,32 @@
 //	- Data about the lead (email, name, etc)
 //	- lead id if _setResponseCallback shows a lead is already being tracked
 //	- something telling the script to do a createLead or an updateLead
+
 // SharpSpring API keys
-$accountID = '2_0771E5357E916153825232BDB651D5C7';
-$secretKey = '4DDBE5F0AA89B8A314FEF5166557412C';  
+$accountID = '';
+$secretKey = '';  
+
 // Some logic would go here to determine if we are updating a lead or creating a lead (depending on _setResponseCallback as determined by on-page JS)                                                                   
 $method = 'createLeads';
+$method2 = 'updateLeads';
+
 // This stuff would be populated from the parameters provided by AJAX
 $params = array(
 	'objects' => array (
 		array( 
-			'firstName'		=> 'SharpSpring',
-			'lastName'		=> 'SS Last',
+			'Product1'		=> false,
+			'Product2'		=> false,
 			'emailAddress'	=> 'jose@pixelsupply.co'
 		)
 	)
 );
 $requestID = session_id();                                                      
 $data = array(                                                                                
+	'method' => $method,                                                                      
+	'params' => $params,                                                                      
+	'id' => $requestID,                                                                       
+);   
+$data2 = array(                                                                                
 	'method' => $method,                                                                      
 	'params' => $params,                                                                      
 	'id' => $requestID,                                                                       
@@ -38,7 +47,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 	'Content-Length: ' . strlen($data)                                                        
 ));                                                                                           
 $result_json = curl_exec($ch);                                                                     
-curl_close($ch);                                                                              
+curl_close($ch);
+
+
 	
 echo $result_json;
 	
